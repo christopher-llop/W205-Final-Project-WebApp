@@ -1,0 +1,40 @@
+
+<div class="btn-group" role="group" aria-label="Page group">
+    {% if TotalPages > 1 and CurrentPage < MaxPage %}
+        {% for Item in range(TotalPages) %}
+            {% if loop.index == CurrentPage %}
+                <div type="button" class="btn btn-disabled" disabled style="cursor: default;"><b>{{ loop.index }}</b></div>
+            {% elif loop.index < MaxPage %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">{{ loop.index }}</a>
+            {% elif loop.index == MaxPage %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">Next</a>
+            {% endif %}
+        {% endfor %}
+    {% elif TotalPages > 1 and (CurrentPage + MaxPage) < TotalPages %}
+        {% for Item in range(MaxPage * CurrentPage) %}
+            {% if loop.index0 == (CurrentPage - MaxPage) %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">Prev</a>
+            {% elif loop.index == CurrentPage %}
+                <div type="button" class="btn btn-disabled" disabled style="cursor: default"><b>{{ loop.index }}</b></div>
+            {% elif loop.index > CurrentPage and loop.index < (CurrentPage + MaxPage) and loop.index < TotalPages %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">{{ loop.index }}</a>
+            {% elif loop.index == (CurrentPage + MaxPage) and loop.index < TotalPages %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">Next</a>
+            {% elif loop.index == TotalPages and (CurrentPage + MaxPage) > TotalPages %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">{{ loop.index }}</a>
+            {% endif %}
+    {% endfor %}
+    {% elif TotalPages > 1 %}
+        {% for Item in range(MaxPage * CurrentPage) %}
+            {% if (loop.index - 1) == (CurrentPage - MaxPage) %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">Prev</a>
+            {% elif loop.index == CurrentPage %}
+            <div type="button" class="btn btn-disabled" disabled style="cursor: default"><b>{{ loop.index }}</b></div>
+            {% elif loop.index > (TotalPages - MaxPage) and loop.index < (CurrentPage + MaxPage) and loop.index < TotalPages %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">{{ loop.index }}</a>
+            {% elif loop.index == TotalPages and (CurrentPage + MaxPage) > TotalPages %}
+                <a type="button" class="btn btn-default" href="/index/{{ loop.index }}">{{ loop.index }}</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

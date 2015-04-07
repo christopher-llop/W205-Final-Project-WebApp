@@ -1,0 +1,38 @@
+
+{% if TotalPages > 1 and CurrentPage < 15 %}
+{% for Item in range(TotalPages) %}
+{% if loop.index == CurrentPage %}
+        <div style="border: 1px solid; border-color: #1C5F8B; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px"><b>{{ loop.index }}</b></div>
+    {% elif loop.index < 15 %}
+        <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">{{ loop.index }}</div></a>
+    {% elif loop.index == 15 %}
+        <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 28px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">Next</div></a>
+    {% endif %}
+{% endfor %}
+{% elif TotalPages > 1 and (CurrentPage + 15) < TotalPages %}
+    {% for Item in range(15 * CurrentPage) %}
+        {% if loop.index0 == (CurrentPage - 15) %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 28px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">Prev</div></a>
+        {% elif loop.index == CurrentPage %}
+            <div style="border: 1px solid; border-color: #1C5F8B; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px"><b>{{ loop.index }}</b></div>
+        {% elif loop.index > CurrentPage and loop.index < (CurrentPage + 15) and loop.index < TotalPages %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">{{ loop.index }}</div></a>
+        {% elif loop.index == (CurrentPage + 15) and loop.index < TotalPages %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 28px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">Next</div></a>
+        {% elif loop.index == TotalPages and (CurrentPage + 15) > TotalPages %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">{{ loop.index }}</div></a>
+        {% endif %}
+{% endfor %}
+{% elif TotalPages > 1 %}
+    {% for Item in range(15 * CurrentPage) %}
+        {% if (loop.index - 1) == (CurrentPage - 15) %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 28px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">Prev</div></a>
+        {% elif loop.index == CurrentPage %}
+            <div style="border: 1px solid; border-color: #1C5F8B; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px"><b>{{ loop.index }}</b></div>
+        {% elif loop.index > (TotalPages - 15) and loop.index < (CurrentPage + 15) and loop.index < TotalPages %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">{{ loop.index }}</div></a>
+        {% elif loop.index == TotalPages and (CurrentPage + 15) > TotalPages %}
+            <a style="cursor: pointer; color: #000000" href="/index/{{ loop.index }}"><div style="border: 1px solid; width: 22px; height: 16px; text-align: center; float: left; margin: 2px; padding-top: 2px">{{ loop.index }}</div></a>
+        {% endif %}
+    {% endfor %}
+{% endif %}
