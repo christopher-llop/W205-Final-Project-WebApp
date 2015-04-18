@@ -1,77 +1,44 @@
 
 def dead_query(query_string):
+    results = []
     if query_string == "test1":
-        return [  # fake array of posts
-            {
-                'site': {'title': 'Omelette Du Fromage',
-                         'address': 'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage',
-                         'address_short':'urbandictionary.com' },
-                'body': 'The Avengers movie was so cool!'
-            },
-            {
-                'site': {'title': 'Chicken Parmesan',
-                         'address': 'http://www.simplyrecipes.com/recipes/chicken_parmesan/',
-                         'address_short':'simplyrecipes.com' },
-                'body': 'Here is some more sample query text!'
-            },
-            {
-                'site': {'title': 'Franks Wing Dip',
-                         'address': 'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1',
-                         'address_short':'urbandictionary.com' },
-                'body': 'Uh oh! We are not currently capturing any data to put here'
-            },
-            {
-                'site': {'title': 'Omelette Du Fromage',
-                         'address': 'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage',
-                         'address_short':'urbandictionary.com' },
-                'body': 'The Avengers movie was so cool!'
-            },
-            {
-                'site': {'title': 'Chicken Parmesan',
-                         'address': 'http://www.simplyrecipes.com/recipes/chicken_parmesan/',
-                         'address_short':'simplyrecipes.com' },
-                'body': 'Here is some more sample query text!'
-            },
-            {
-                'site': {'title': 'Franks Wing Dip',
-                         'address': 'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1',
-                         'address_short':'urbandictionary.com' },
-                'body': 'Uh oh! We are not currently capturing any data to put here'
-            },
-            {
-                'site': {'title': 'Omelette Du Fromage',
-                         'address': 'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage',
-                         'address_short':'urbandictionary.com' },
-                'body': 'The Avengers movie was so cool!'
-            },
-            {
-                'site': {'title': 'Chicken Parmesan',
-                         'address': 'http://www.simplyrecipes.com/recipes/chicken_parmesan/',
-                         'address_short':'simplyrecipes.com' },
-                'body': 'Here is some more sample query text!'
-            },
-            {
-                'site': {'title': 'Franks Wing Dip',
-                         'address': 'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1',
-                         'address_short':'urbandictionary.com' },
-                'body': 'Uh oh! We are not currently capturing any data to put here'
-            },
-            {
-                'site': {'title': 'Omelette Du Fromage',
-                         'address': 'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage',
-                         'address_short':'urbandictionary.com' },
-                'body': 'The Avengers movie was so cool!'
-            },
-            {
-                'site': {'title': 'Chicken Parmesan',
-                         'address': 'http://www.simplyrecipes.com/recipes/chicken_parmesan/',
-                         'address_short':'simplyrecipes.com' },
-                'body': 'Here is some more sample query text!'
-            },
-            {
-                'site': {'title': 'Franks Wing Dip',
-                         'address': 'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1',
-                         'address_short':'urbandictionary.com' },
-                'body': 'Uh oh! We are not currently capturing any data to put here'
-            }
-        ]
+        results = [{'title':'Omelette Du Fromage', 'url':'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage'},
+           {'title':'Chicken Parmesan', 'url':'http://www.simplyrecipes.com/recipes/chicken_parmesan/'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           {'title':'Omelette Du Fromage', 'url':'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage'},
+           {'title':'Chicken Parmesan', 'url':'http://www.simplyrecipes.com/recipes/chicken_parmesan/'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           {'title':'Omelette Du Fromage', 'url':'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage'},
+           {'title':'Chicken Parmesan', 'url':'http://www.simplyrecipes.com/recipes/chicken_parmesan/'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           {'title':'Omelette Du Fromage', 'url':'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage'},
+           {'title':'Chicken Parmesan', 'url':'http://www.simplyrecipes.com/recipes/chicken_parmesan/'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           {'title':'Omelette Du Fromage', 'url':'http://www.urbandictionary.com/define.php?term=Omelette+du+fromage'},
+           {'title':'Chicken Parmesan', 'url':'http://www.simplyrecipes.com/recipes/chicken_parmesan/'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           {'title':'Franks Wing Dip', 'url':'https://www.franksredhot.com/recipes/franks-redhot-buffalo-chicken-dip-RE1242-1'},
+           ]
+    elif query_string == "test2":
+        results = [{'title':'Sample Title', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 2', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 3', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 4', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 5', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 6', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 7', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 8', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 9', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 10', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 11', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 12', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 13', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 14', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 15', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 16', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 17', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 18', 'url':'http://www.christopherllop.com'},
+           {'title':'Sample Title 19', 'url':'http://www.christopherllop.com'}
+           ]
+    return results
+

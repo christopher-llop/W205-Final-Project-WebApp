@@ -12,7 +12,7 @@ def index(CurrentPage = 1):
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
-        posts = dead_query(query_string="test1")
+        posts = dead_query(query_string=form.post.data)
         session['posts'] = posts
 
     user = {'nickname': 'Friend'}  # fake user
