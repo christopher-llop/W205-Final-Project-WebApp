@@ -14,7 +14,7 @@ def index(CurrentPage = 1):
         #return redirect('/index')
         posts = dead_query(form.post.data)
         session['posts'] = posts
-        #flasher = query(form.post.data)
+        flasher = query(form.post.data)
         #flash("%s") % (str(flasher))
 
     user = {'nickname': 'Friend'}  # fake user
