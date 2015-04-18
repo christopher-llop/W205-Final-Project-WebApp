@@ -46,6 +46,8 @@ def extract_key_ingred(ingredient):
     ingredient = ingredient.strip().lower()
     ingredient = patch_ingred(ingredient)
     #print "original ingredients {}".format(ingredient)
+    tokenizer = RegexpTokenizer(r'\w+')
+    tkn = tokenizer.tokenize(ingredient)
     key_words = "test"
     return key_words
 
