@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session
 from app import app
 from .forms import LoginForm, PostForm
 from config import POSTS_PER_PAGE, MAX_PAGES_DISPLAYED
-from .query import dead_query
+from .query import dead_query, query
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -12,8 +12,10 @@ def index(CurrentPage = 1):
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
-        posts = dead_query(query_string=form.post.data)
+        posts = dead_query(form.post.data)
         session['posts'] = posts
+        flasher = query(form.post.data)
+        flash(flasher)
 
     user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
