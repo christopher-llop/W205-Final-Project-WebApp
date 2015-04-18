@@ -107,5 +107,27 @@ def query(query_string):
 
     return results
 
+def query_placeholder():
+    results = [{'title':'Sample Title', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 2', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 3', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 4', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 5', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 6', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 7', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 8', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 9', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 10', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 11', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 12', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 13', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 14', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 15', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 16', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 17', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 18', 'url':'http://www.christopherllop.com'},
+               {'title':'Sample Title 19', 'url':'http://www.christopherllop.com'}
+               ]
+    return results
 
 #query("lemon apple almonds")

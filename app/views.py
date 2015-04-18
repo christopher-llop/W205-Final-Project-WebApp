@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, session
 from app import app
 from .forms import LoginForm, PostForm
 from config import POSTS_PER_PAGE, MAX_PAGES_DISPLAYED
-from .query import query
+from .query import query, query_placeholder
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -12,7 +12,9 @@ def index(CurrentPage = 1):
     posts = []
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
-        posts = query(form.post.data)
+        #posts = query(form.post.data)
+        posts = query_placeholder()
+        session['posts'] = posts
         #print posts
         #return redirect('/index')
     user = {'nickname': 'Friend'}  # fake user
@@ -22,8 +24,9 @@ def index(CurrentPage = 1):
     if (ResultsCount % POSTS_PER_PAGE > 0):
         TotalPages += 1
 
+    posts = session['posts']
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
-
+    #flash(posts)
     return render_template('index.html',
                            title='Home',
                            user=user,
