@@ -50,6 +50,7 @@ def extract_key_ingred(ingredient):
     tkn = tokenizer.tokenize(ingredient)
     ps = PorterStemmer()
     tkn = [ps.stem(t) for t in tkn if t not in measures and t not in methods and t not in english_sw]
+    tagged = nltk.pos_tag(tkn)
     key_words = "test"
     return key_words
 
