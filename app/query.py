@@ -14,6 +14,13 @@ def patch_ingred(ingredient):
     return ingredient
 
 def extract_key_ingred(ingredient):
+    measures = ['ounce','ounces','cup','cups','pound','pounds','kilos',
+            'grams','gram','kilo','bag','bags','teaspoon',
+            'teaspoons','tablespoon','tablespoons','tbsp','tbsps',
+            'lbs','kg','kilogram','kilograms','can','cans',
+            'tsp','tsps','oz','pint','pt','pints','pack','packs','packed',
+            'pinch']
+
 
     return "returning"
 
