@@ -48,6 +48,8 @@ def extract_key_ingred(ingredient):
     #print "original ingredients {}".format(ingredient)
     tokenizer = RegexpTokenizer(r'\w+')
     tkn = tokenizer.tokenize(ingredient)
+    ps = PorterStemmer()
+    tkn = [ps.stem(t) for t in tkn if t not in measures and t not in methods and t not in english_sw]
     key_words = "test"
     return key_words
 
