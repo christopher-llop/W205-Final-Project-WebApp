@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, session
 from app import app
 from .forms import LoginForm, PostForm
 from config import POSTS_PER_PAGE, MAX_PAGES_DISPLAYED
@@ -10,10 +10,16 @@ from .query import dead_query
 def index(CurrentPage = 1):
     form = PostForm()
     if form.validate_on_submit():
-        flash('Search requested for Keywords="%s"' % (form.post.data))
-        return redirect('/index')
+        #flash('Search requested for Keywords="%s"' % (form.post.data))
+        #return redirect('/index')
+        posts = dead_query(query_string="test1")
+        session['posts'] = posts
+
     user = {'nickname': 'Friend'}  # fake user
-    posts = dead_query()
+    if 'posts' in session:
+        posts = session['posts']
+    else:
+        posts = []
     ResultsCount = len(posts)
     TotalPages = ResultsCount // POSTS_PER_PAGE
     if (ResultsCount % POSTS_PER_PAGE > 0):
