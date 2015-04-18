@@ -14,7 +14,48 @@ def patch_ingred(ingredient):
     return ingredient
 
 def extract_key_ingred(ingredient):
-    key_words = "wtf"
+    measures = ['ounce','ounces','cup','cups','pound','pounds','kilos',
+            'grams','gram','kilo','bag','bags','teaspoon',
+            'teaspoons','tablespoon','tablespoons','tbsp','tbsps',
+            'lbs','kg','kilogram','kilograms','can','cans',
+            'tsp','tsps','oz','pint','pt','pints','pack','packs','packed',
+            'pinch']
+
+    english_sw = [
+        'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',  'your',
+        'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she',
+        'her', 'hers', 'herself', 'it', 'its', 'itself', 'they', 'them', 'their',
+        'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that',
+        'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+        'have', 'has', 'had',  'having', 'do', 'does', 'did', 'doing', 'a', 'an',
+        'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of',
+        'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through',
+        'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down',
+        'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then',
+        'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',
+        'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor',
+        'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can',
+        'will', 'just', 'don', 'should', 'now'
+    ]
+
+    methods = ['grounded','crushed','chopped', 'cored', 'peeled', 'sliced',
+               'squeezed','diced','divided','softened','thawed','needed',
+               'drained','rinsed','beaten','husked','cleaned','mashed','melted',
+               'dried','processed','grated','frying','chopp','chuncked','chunk']
+
+    ingredient = ingredient.strip().lower()
+    ingredient = patch_ingred(ingredient)
+    #print "original ingredients {}".format(ingredient)
+    tokenizer = RegexpTokenizer(r'\w+')
+    tkn = tokenizer.tokenize(ingredient)
+    ps = PorterStemmer()
+    tkn = [ps.stem(t) for t in tkn if t not in measures and t not in methods and t not in english_sw]
+    tagged = nltk.pos_tag(tkn)
+    key_words = [w for w,tag in tagged if tag != 'LS' and tag != 'CD']
+    np = [w for w,tag in tagged if tag == 'NN'] # noun phrase
+    np = ' '.join(np)
+    if np not in key_words and len(np) > 0 and len(np.split()) <= 3:
+        key_words.append(np)
     return key_words
 
 
