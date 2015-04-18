@@ -1,9 +1,7 @@
-#from pymongo import MongoClient
 import re
 import nltk
 from nltk import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
-#from bson.objectid import ObjectId
 
 # Clean query - determine count of terms
 # Stem query - stem query as needed
@@ -61,30 +59,12 @@ def extract_key_ingred(ingredient):
 ##Intersect = S1&S2
 
 def query(query_string):
-    #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
-
-    #client = MongoClient(MONGODB_URI)
-
-    #print client.database_names()
-    #db = client['recipemaker']
-    #print db.collection_names()
-    #inv_ind = db.recipe_index
-    #doc_info = db.recipeURLs
 
     #TODO: Will need to add exclusion parsing here, prior to string cleaning
     #TODO: Otherwise, we will lose "-" sign
 
     processed_search = extract_key_ingred(query_string)
 
-    possible_documents = []
-    for ingredient in processed_search:
-        print "searching for " + str(ingredient)
-        try:
-            placeholder = 1
-            #get_documents = []
-            #get_documents = inv_ind.find_one({"ingredient":ingredient})[u'postinglist']
-        except:
-            pass
     return processed_search
 
 def dead_query(query_string):
