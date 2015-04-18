@@ -1,3 +1,7 @@
+import re
+import nltk
+from nltk import PorterStemmer
+from nltk.tokenize import RegexpTokenizer
 
 
 def dead_query(query_string):
