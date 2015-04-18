@@ -75,13 +75,31 @@ def query(query_string):
 
     #print client.database_names()
     db = client['recipemaker']
+    print db.collection_names()
+    inv_ind = db.recipe_index
+    #doc_info = db.recipeURLs
 
     #TODO: Will need to add exclusion parsing here, prior to string cleaning
     #TODO: Otherwise, we will lose "-" sign
 
     processed_search = extract_key_ingred(query_string)
 
-    return processed_search
+    possible_documents = []
+    for ingredient in processed_search:
+        print "searching for " + str(ingredient)
+        try:
+            #get_documents = []
+            get_documents = inv_ind.find_one({"ingredient":ingredient})[u'postinglist']
+            if possible_documents == []:
+                possible_documents = get_documents
+            else:
+                #S1 = set(possible_documents)
+                #S2 = set(get_documents)
+                #S3 = S1 & S2
+                possible_documents = set(possible_documents) & set(get_documents)
+        except:
+            pass
+    return possible_documents
 
 
 def dead_query(query_string):
