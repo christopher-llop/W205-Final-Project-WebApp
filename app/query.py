@@ -46,16 +46,7 @@ def extract_key_ingred(ingredient):
     ingredient = ingredient.strip().lower()
     ingredient = patch_ingred(ingredient)
     #print "original ingredients {}".format(ingredient)
-    tokenizer = RegexpTokenizer(r'\w+')
-    tkn = tokenizer.tokenize(ingredient)
-    ps = PorterStemmer()
-    tkn = [ps.stem(t) for t in tkn if t not in measures and t not in methods and t not in english_sw]
-    tagged = nltk.pos_tag(tkn)
-    key_words = [w for w,tag in tagged if tag != 'LS' and tag != 'CD']
-    np = [w for w,tag in tagged if tag == 'NN'] # noun phrase
-    np = ' '.join(np)
-    if np not in key_words and len(np) > 0 and len(np.split()) <= 3:
-        key_words.append(np)
+    key_words = "test"
     return key_words
 
 
