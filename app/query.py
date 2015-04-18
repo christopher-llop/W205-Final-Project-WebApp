@@ -2,7 +2,7 @@ import re
 import nltk
 from nltk import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
-
+from pymongo import MongoClient
 
 def patch_ingred(ingredient):
     ingredient = ingredient.replace("&#174","")
@@ -69,6 +69,12 @@ def extract_key_ingred(ingredient):
 ##Intersect = S1&S2
 
 def query(query_string):
+    MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
+
+    client = MongoClient(MONGODB_URI)
+
+    #print client.database_names()
+    db = client['recipemaker']
 
     #TODO: Will need to add exclusion parsing here, prior to string cleaning
     #TODO: Otherwise, we will lose "-" sign
