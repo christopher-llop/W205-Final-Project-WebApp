@@ -22,7 +22,8 @@ def extract_key_ingred(ingredient):
             'pinch']
 
     nltk.data.path.append('./nltk_data/')  # set the path
-    english_sw = nltk.corpus.stopwords.words('english')
+    #english_sw = nltk.corpus.stopwords.words('english')
+    english_sw = ['the','a']
 
     methods = ['grounded','crushed','chopped', 'cored', 'peeled', 'sliced',
                'squeezed','diced','divided','softened','thawed','needed',
