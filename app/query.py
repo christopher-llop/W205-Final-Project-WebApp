@@ -21,6 +21,28 @@ def extract_key_ingred(ingredient):
             'tsp','tsps','oz','pint','pt','pints','pack','packs','packed',
             'pinch']
 
+    nltk.data.path.append('./nltk_data/')  # set the path
+    english_sw = nltk.corpus.stopwords.words('english')
+
+    methods = ['grounded','crushed','chopped', 'cored', 'peeled', 'sliced',
+               'squeezed','diced','divided','softened','thawed','needed',
+               'drained','rinsed','beaten','husked','cleaned','mashed','melted',
+               'dried','processed','grated','frying','chopp','chuncked','chunk']
+
+    ingredient = ingredient.strip().lower()
+    ingredient = patch_ingred(ingredient)
+    #print "original ingredients {}".format(ingredient)
+    tokenizer = RegexpTokenizer(r'\w+')
+    tkn = tokenizer.tokenize(ingredient)
+    ps = PorterStemmer()
+    tkn = [ps.stem(t) for t in tkn if t not in measures and t not in methods and t not in english_sw]
+    tagged = nltk.pos_tag(tkn)
+    key_words = [w for w,tag in tagged if tag != 'LS' and tag != 'CD']
+    np = [w for w,tag in tagged if tag == 'NN'] # noun phrase
+    np = ' '.join(np)
+    if np not in key_words and len(np) > 0 and len(np.split()) <= 3:
+        key_words.append(np)
+    return key_words
 
     return "returning"
 
