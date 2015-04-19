@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session
 from app import app
 from .forms import LoginForm, PostForm
 from config import POSTS_PER_PAGE, MAX_PAGES_DISPLAYED
-from .query import dead_query, query
+from .query import dead_query, query, fetch_details
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -17,7 +17,7 @@ def index(CurrentPage = 1):
         flasher = query(form.post.data)
         flash(flasher)
 
-    user = {'nickname': 'Friend'}  # fake user
+    #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
         posts = session['posts']
     else:
@@ -27,7 +27,8 @@ def index(CurrentPage = 1):
     if (ResultsCount % POSTS_PER_PAGE > 0):
         TotalPages += 1
 
-    posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
+    post_subset = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
+    post_data = fetch_details(post_subset)
 
     return render_template('index.html',
                            title='Home',
