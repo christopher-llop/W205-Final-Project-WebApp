@@ -13,7 +13,7 @@ def index(CurrentPage = 1):
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
         #posts = dead_query(form.post.data)
-        posts = query(form.post.data)
+        posts = list(query(form.post.data))
         session['posts'] = posts
         flasher = dead_query(form.post.data)
         #flash(list(flasher))
