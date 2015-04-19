@@ -9,6 +9,7 @@ from .query import dead_query, query, fetch_details
 @app.route('/index/<int:CurrentPage>', methods=['GET', 'POST'])
 def index(CurrentPage = 1):
     form = PostForm()
+    flasher = [] #remove me
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
@@ -29,12 +30,14 @@ def index(CurrentPage = 1):
 
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
     #flash(post_subset)
-    #post_data = fetch_details(list(flasher)[0:10])
+    post_data = fetch_details(list(flasher)[0:10])
+    print "Results"
+    print post_data
     #flash(post_data)
 
     return render_template('index.html',
                            title='Home',
-                           posts=posts,
+                           posts=post_data,
                            form=form,
                            ResultsCount=ResultsCount,
                            TotalPages=TotalPages,

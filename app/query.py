@@ -103,21 +103,23 @@ def query(query_string):
     return possible_documents
 
 def fetch_details(post_list):
-    MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
+    #MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
+    MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
     client = MongoClient(MONGODB_URI)
 
-    #print client.database_names()
-    db = client['scraper']
+    #db = client['scraper']
+    db = client['recipemaker']
     print db.collection_names()
     doc_info = db.recipeURLs
 
     details = []
     for doc_id in post_list:
-        print doc_id
-        get_info = doc_info.find_one({"_id": ObjectId(doc_id)})
-        print get_info
-        #get_info.pop(u'ingred',None)
-        details.append(get_info)
+        try:
+            get_info = doc_info.find_one({"_id": ObjectId(doc_id)})
+            get_info.pop(u'ingred',None)
+            details.append(get_info)
+        except:
+            pass
 
     return details
 
