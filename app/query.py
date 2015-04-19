@@ -113,8 +113,10 @@ def fetch_details(post_list):
 
     details = []
     for doc_id in post_list:
+        print doc_id
         get_info = doc_info.find_one({"_id": ObjectId(doc_id)})
-        get_info.pop(u'ingred',None)
+        print get_info
+        #get_info.pop(u'ingred',None)
         details.append(get_info)
 
     return details
