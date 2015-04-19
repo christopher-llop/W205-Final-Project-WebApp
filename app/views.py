@@ -32,8 +32,7 @@ def index(CurrentPage = 1):
 
     return render_template('index.html',
                            title='Home',
-                           user=user,
-                           posts=posts,
+                           posts=post_subset,
                            form=form,
                            ResultsCount=ResultsCount,
                            TotalPages=TotalPages,
