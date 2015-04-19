@@ -15,7 +15,7 @@ def index(CurrentPage = 1):
         posts = dead_query(form.post.data)
         session['posts'] = posts
         flasher = query(form.post.data)
-        flash(flasher)
+        flash(list(flasher))
 
     #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
