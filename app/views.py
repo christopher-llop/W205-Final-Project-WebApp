@@ -13,7 +13,6 @@ def index(CurrentPage = 1):
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
         posts = dead_query(form.post.data)
-        #posts = list(query(form.post.data))
         session['posts'] = posts
         flasher = query(form.post.data)
         flash(list(flasher))
@@ -28,13 +27,13 @@ def index(CurrentPage = 1):
     if (ResultsCount % POSTS_PER_PAGE > 0):
         TotalPages += 1
 
-    post_subset = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
+    posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
     #flash(post_subset)
     #post_data = fetch_details(post_subset)
 
     return render_template('index.html',
                            title='Home',
-                           posts=flasher,
+                           posts=posts,
                            form=form,
                            ResultsCount=ResultsCount,
                            TotalPages=TotalPages,
