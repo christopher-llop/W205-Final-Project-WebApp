@@ -29,7 +29,7 @@ def index(CurrentPage = 1):
 
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
     #flash(post_subset)
-    #post_data = fetch_details(post_subset)
+    post_data = fetch_details(flasher)
 
     return render_template('index.html',
                            title='Home',
