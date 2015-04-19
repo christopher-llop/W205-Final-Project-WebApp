@@ -3,6 +3,7 @@ import nltk
 from nltk import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 def patch_ingred(ingredient):
     ingredient = ingredient.replace("&#174","")
