@@ -15,7 +15,7 @@ def index(CurrentPage = 1):
         posts = dead_query(form.post.data)
         session['posts'] = posts
         flasher = query(form.post.data)
-        flash(list(flasher))
+        flash(list(flasher)[10])
 
     #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
@@ -29,7 +29,7 @@ def index(CurrentPage = 1):
 
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
     #flash(post_subset)
-    post_data = fetch_details(flasher)
+    #post_data = fetch_details(list(flasher))
 
     return render_template('index.html',
                            title='Home',
