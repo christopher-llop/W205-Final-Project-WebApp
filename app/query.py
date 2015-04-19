@@ -109,7 +109,6 @@ def fetch_details(post_list):
 
     #db = client['scraper']
     db = client['recipemaker']
-    print db.collection_names()
     doc_info = db.recipeURLs
 
     details = []

@@ -9,30 +9,34 @@ from .query import dead_query, query, fetch_details
 @app.route('/index/<int:CurrentPage>', methods=['GET', 'POST'])
 def index(CurrentPage = 1):
     form = PostForm()
-    flasher = [] #remove me
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
-        posts = dead_query(form.post.data)
-        session['posts'] = posts
-        flasher = query(form.post.data)
-        flash(list(flasher)[0:10])
+        #posts = dead_query(form.post.data)
+        posts = list(query(form.post.data))
+        session['posts'] = posts[0:400]
+        #flasher = query(form.post.data)
+        #flash(list(flasher)[0:10])
 
     #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
         posts = session['posts']
+        print "Restoring Posts from Cookie"
+        print posts
     else:
         posts = []
+        print "No Cookie"
     ResultsCount = len(posts)
     TotalPages = ResultsCount // POSTS_PER_PAGE
     if (ResultsCount % POSTS_PER_PAGE > 0):
         TotalPages += 1
 
+    print POSTS_PER_PAGE * (CurrentPage - 1)
+    print POSTS_PER_PAGE * CurrentPage
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
+    print posts
     #flash(post_subset)
-    post_data = fetch_details(list(flasher)[0:10])
-    print "Results"
-    print post_data
+    post_data = fetch_details(posts)
     #flash(post_data)
 
     return render_template('index.html',
