@@ -12,10 +12,11 @@ def index(CurrentPage = 1):
     if form.validate_on_submit():
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
-        posts = dead_query(form.post.data)
+        #posts = dead_query(form.post.data)
+        posts = query(form.post.data)
         session['posts'] = posts
-        flasher = query(form.post.data)
-        flash(list(flasher))
+        #flasher = query(form.post.data)
+        #flash(list(flasher))
 
     #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
@@ -28,11 +29,11 @@ def index(CurrentPage = 1):
         TotalPages += 1
 
     post_subset = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
-    #post_data = fetch_details(post_subset)
+    post_data = fetch_details(post_subset)
 
     return render_template('index.html',
                            title='Home',
-                           posts=post_subset,
+                           posts=post_data,
                            form=form,
                            ResultsCount=ResultsCount,
                            TotalPages=TotalPages,
