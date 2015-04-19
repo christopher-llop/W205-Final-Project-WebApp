@@ -28,7 +28,7 @@ def index(CurrentPage = 1):
         TotalPages += 1
 
     post_subset = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
-    post_data = fetch_details(post_subset)
+    #post_data = fetch_details(post_subset)
 
     return render_template('index.html',
                            title='Home',
