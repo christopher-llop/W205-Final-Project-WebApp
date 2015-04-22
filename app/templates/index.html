@@ -16,10 +16,39 @@
                       </td>
                   </tr>
                   <tr>
+                      <td></td><td>
+                      - <input id="slider1" class="sync" type="range" min="0" max="100" value="{{slider1}}" onchange="updateSliders()"/>
+                      + </td><td onclick="window.alert('Set this high to return results you can make ONLY with your ingredients. Set this low if you are willing to shop for more ingredients.')">
+                      Recipes you can make with only search terms [click for info]
+                      </td>
+                  </tr><tr>
+                      <td></td><td>
+                      - <input id="slider2" class="sync" type="range" min="0" max="100" value="{{slider2}}" onchange="updateSliders()"/>
+                      + </td><td onclick="window.alert('Set this high if you want to use most of the ingredients in your query. Set this low for ideas that will not strip your pantry bare.')">
+                      Recipes that use all your search terms [click for info]
+                      </td>
+                  </tr><tr>
+                      <td></td><td>
+                      - <input id="slider3" class="sync" type="range" min="0" max="100" value="{{slider3}}" onchange="updateSliders()"/>
+                      + </td><td onclick="window.alert('Set this high to prioritize using some of your less common ingredients.')">
+                      Recipes that prioritize your more unique ingredients [click for info]
+                      </td>
+                  </tr><tr>
+                      <td></td><td>
+                      - <input id="slider4" class="sync" type="range" min="0" max="100" value="{{slider4}}" onchange="updateSliders()"/>
+                      + </td><td onclick="window.alert('Set this high for results that might surprise you.')">
+                      Unusal recipes [click for info]
+                      </td>
+
+                  </tr>
+                  <tr>
                       <td></td>
                       <td><input type="submit" value="Eat!"></td>
                       <td></td>
+<!--                      <button onclick="window.alert(5 + 6)">Try it</button>-->
                   </tr>
+              </table>
+              <table>
               </table>
           </form>
 
@@ -36,14 +65,15 @@
 
         <br>
     </div>
+
+<script>
+    function updateSliders() {
+        document.getElementById("sliderField1").value = document.getElementById("slider1").value;
+        document.getElementById("sliderField2").value = document.getElementById("slider2").value;
+        document.getElementById("sliderField3").value = document.getElementById("slider3").value;
+        document.getElementById("sliderField4").value = document.getElementById("slider4").value;
+    }
+</script>
+
 {% endblock %}
 
-
-Suppose you have an outcome that can only take a value of 1 if you respond, it's still reasonable to say two outcomes (1. response; 2. response AND room available).
-This works for dummy variables that can only be coded as 1.
-
-If you start thinking about length of response, you might get this BP issue. Can't really do length of response, given that you respond. "Bad" control.
-More advanced reading: "Principle Stratigication" - invented to deal with the BP case. David B doesn't know much about it.
-
-
-David R: We don't have to define it as attrition if we define out outcome variable correctly.

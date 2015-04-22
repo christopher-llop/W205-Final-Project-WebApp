@@ -1,6 +1,6 @@
 __author__ = 'cjllop'
 from flask_wtf import Form
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, HiddenField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
@@ -9,3 +9,7 @@ class LoginForm(Form):
 
 class PostForm(Form):
     post = StringField('post', validators=[DataRequired()])
+    sliderField1 = HiddenField('sliderField1')
+    sliderField2 = HiddenField('sliderField2')
+    sliderField3 = HiddenField('sliderField3')
+    sliderField4 = HiddenField('sliderField4')

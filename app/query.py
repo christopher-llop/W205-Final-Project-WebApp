@@ -61,20 +61,10 @@ def extract_key_ingred(ingredient):
     return key_words
 
 
-##eps2= coll.find({'ingredient': 'lemon' })
-##Ingred2 = []for q in eps2:
-#print q['postinglist']       Ingred2.append (q['postinglist'])
-
-##S1 = set(Ingred1[0])
-##S2 = set(Ingred2[0])
-##Intersect = S1&S2
-
 def query(query_string):
     MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
-
     client = MongoClient(MONGODB_URI)
 
-    #print client.database_names()
     db = client['recipemaker']
     print db.collection_names()
     inv_ind = db.recipe_index
@@ -89,18 +79,41 @@ def query(query_string):
     for ingredient in processed_search:
         print "searching for " + str(ingredient)
         try:
-            #get_documents = []
             get_documents = inv_ind.find_one({"ingredient":ingredient})[u'postinglist']
             if possible_documents == []:
                 possible_documents = get_documents
             else:
-                #S1 = set(possible_documents)
-                #S2 = set(get_documents)
-                #S3 = S1 & S2
                 possible_documents = set(possible_documents) & set(get_documents)
         except:
             pass
     return possible_documents
+
+
+def ranked_query(query_string):
+    MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
+    client = MongoClient(MONGODB_URI)
+    db = client['recipemaker']
+
+    ranked_ind = db.rank3
+    processed_search = extract_key_ingred(query_string)
+    print "I work!"
+
+    possible_documents = []
+    for ingredient in processed_search:
+        print "searching for " + str(ingredient)
+        try:
+            get_documents = ranked_ind.find_one({"ingredient":ingredient})[u'postinglistIDFRank']
+            #print get_documents
+            if possible_documents == []:
+                possible_documents = get_documents.keys()
+                print get_documents['552053a484ab950adf8172b0']
+            else:
+                possible_documents = set(possible_documents) & set(get_documents.keys())
+        except:
+            print "pass"
+            pass
+    return possible_documents
+
 
 def fetch_details(post_list):
     #MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'

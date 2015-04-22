@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session
 from app import app
 from .forms import LoginForm, PostForm
 from config import POSTS_PER_PAGE, MAX_PAGES_DISPLAYED
-from .query import dead_query, query, fetch_details
+from .query import dead_query, query, ranked_query, fetch_details
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -13,16 +13,20 @@ def index(CurrentPage = 1):
         #flash('Search requested for Keywords="%s"' % (form.post.data))
         #return redirect('/index')
         #posts = dead_query(form.post.data)
-        posts = list(query(form.post.data))
+        #posts = list(query(form.post.data))
+        #posts = list(ranked_query(form.post.data))
+        print form.sliderField1.data
+        print form.sliderField2.data
+        print form.sliderField3.data
+        print form.sliderField4.data
+        flash(form.sliderField4.data)
+        posts = dead_query(query_string="test1")
+        #print posts
         session['posts'] = posts[0:400]
-        #flasher = query(form.post.data)
-        #flash(list(flasher)[0:10])
 
-    #user = {'nickname': 'Friend'}  # fake user
     if 'posts' in session:
         posts = session['posts']
         print "Restoring Posts from Cookie"
-        print posts
     else:
         posts = []
         print "No Cookie"
@@ -31,13 +35,8 @@ def index(CurrentPage = 1):
     if (ResultsCount % POSTS_PER_PAGE > 0):
         TotalPages += 1
 
-    print POSTS_PER_PAGE * (CurrentPage - 1)
-    print POSTS_PER_PAGE * CurrentPage
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
-    print posts
-    #flash(post_subset)
     post_data = fetch_details(posts)
-    #flash(post_data)
 
     return render_template('index.html',
                            title='Home',
