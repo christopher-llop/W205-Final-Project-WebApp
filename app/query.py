@@ -96,9 +96,16 @@ def ranked_query(query_string):
 
     ranked_ind = db.rank3
     processed_search = extract_key_ingred(query_string)
-    print "I work!"
+    print processed_search
 
     possible_documents = []
+    #Part 1: Pull doc data from MongoDB
+    #1. We only need to keep one copy of doc-specific ranks.
+    #2. For each doc, count the # of matched terms
+    #3. For each doc, sum the ingredient IDF
+    query_results = dict()
+    max_results_count = 0
+    max_matched_IDF = 0
     for ingredient in processed_search:
         print "searching for " + str(ingredient)
         try:
@@ -110,8 +117,12 @@ def ranked_query(query_string):
             else:
                 possible_documents = set(possible_documents) & set(get_documents.keys())
         except:
-            print "pass"
+            print "query pass"
             pass
+
+    #Part 2: Rank and Sort
+    ranked_results = dict()
+    n = 0
     return possible_documents
 
 
