@@ -89,13 +89,14 @@ def query(query_string):
     return possible_documents
 
 
+
+
 def ranked_query(query_string):
     #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
     MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
     client = MongoClient(MONGODB_URI)
     #db = client['recipemaker']
     db = client['scraper']
-
 
     ranked_ind = db.rank3
     processed_search = extract_key_ingred(query_string)
@@ -112,13 +113,22 @@ def ranked_query(query_string):
     for ingredient in processed_search:
         print "searching for " + str(ingredient)
         try:
-            get_documents = ranked_ind.find_one({"ingredient":ingredient})[u'postinglistIDFRank']
-            #print get_documents
-            if possible_documents == []:
-                possible_documents = get_documents.keys()
-                #print get_documents['552053a484ab950adf8172b0']
-            else:
-                possible_documents = set(possible_documents) & set(get_documents.keys())
+            query_ingredient = ranked_ind.find_one({"ingredient":ingredient})
+            # For each result
+            for k, v in query_ingredient[u'postinglistIDFRankCount'].iteritems():
+                # If this document was not part of a previous query ingredient, get the doc-specific array
+                query_results[k] = query_results.get(k, v)
+                # Inflate the array to have 5 values
+                while len(query_results[k]) < 5:
+                    query_results[k].append(0)
+                # Add the ingredient IDFs together
+                query_results[k][3] += query_ingredient[u'ingredIDF']
+                # Count the number of ingredients that returend that doc
+                query_results[k][4] += 1
+                # Array is: [DocIDF, DocRank, DocIngredients, MatchedIDF, MatchedIngredients]
+            max_results_count += 1
+            max_matched_IDF += query_ingredient[u'ingredIDF']
+
         except:
             print "query pass"
             pass
