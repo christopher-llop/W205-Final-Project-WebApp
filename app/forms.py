@@ -9,7 +9,7 @@ class LoginForm(Form):
 
 class PostForm(Form):
     post = StringField('post', validators=[DataRequired()])
-    sliderField1 = HiddenField('sliderField1')
-    sliderField2 = HiddenField('sliderField2')
-    sliderField3 = HiddenField('sliderField3')
-    sliderField4 = HiddenField('sliderField4')
+    sliderField1 = HiddenField('sliderField1', default=50)
+    sliderField2 = HiddenField('sliderField2', default=50)
+    sliderField3 = HiddenField('sliderField3', default=50)
+    sliderField4 = HiddenField('sliderField4', default=50)
