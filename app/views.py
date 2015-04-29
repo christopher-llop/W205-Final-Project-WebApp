@@ -15,21 +15,19 @@ def index(CurrentPage = 1):
         #posts = dead_query(form.post.data)
         #posts = list(query(form.post.data))
         #posts = list(ranked_query(form.post.data))
-        print form.sliderField1.data
-        print form.sliderField2.data
-        print form.sliderField3.data
-        print form.sliderField4.data
-        flash(form.sliderField4.data)
         posts = dead_query(query_string="test1")
         #print posts
         session['posts'] = posts[0:400]
 
+    #Load last query results from Cookie (if exists)
     if 'posts' in session:
         posts = session['posts']
         print "Restoring Posts from Cookie"
     else:
         posts = []
         print "No Cookie"
+
+    #Calculate the number of pages for pagination
     ResultsCount = len(posts)
     TotalPages = ResultsCount // POSTS_PER_PAGE
     if (ResultsCount % POSTS_PER_PAGE > 0):
@@ -38,6 +36,7 @@ def index(CurrentPage = 1):
     posts = posts[POSTS_PER_PAGE * (CurrentPage - 1):POSTS_PER_PAGE * CurrentPage]
     post_data = fetch_details(posts)
 
+    #render template
     return render_template('index.html',
                            title='Home',
                            posts=post_data,
