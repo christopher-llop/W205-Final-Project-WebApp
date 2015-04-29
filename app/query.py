@@ -106,7 +106,7 @@ def ranked_query(query_string):
             #print get_documents
             if possible_documents == []:
                 possible_documents = get_documents.keys()
-                print get_documents['552053a484ab950adf8172b0']
+                #print get_documents['552053a484ab950adf8172b0']
             else:
                 possible_documents = set(possible_documents) & set(get_documents.keys())
         except:
