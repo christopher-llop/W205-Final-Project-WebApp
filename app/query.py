@@ -90,9 +90,12 @@ def query(query_string):
 
 
 def ranked_query(query_string):
-    MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
+    #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
+    MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
     client = MongoClient(MONGODB_URI)
-    db = client['recipemaker']
+    #db = client['recipemaker']
+    db = client['scraper']
+
 
     ranked_ind = db.rank3
     processed_search = extract_key_ingred(query_string)
