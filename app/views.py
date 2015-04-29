@@ -14,7 +14,8 @@ def index(CurrentPage = 1):
         #return redirect('/index')
         #posts = dead_query(form.post.data)
         #posts = list(query(form.post.data))
-        posts = list(ranked_query(form.post.data))
+        #posts = list(ranked_query(form.post.data))
+        posts = list(ranked_query(form.post.data, float(form.sliderField1.data), float(form.sliderField2.data), float(form.sliderField3.data), float(form.sliderField4.data)))
         #posts = dead_query(query_string="test1")
         #print posts
         session['posts'] = posts[0:200]

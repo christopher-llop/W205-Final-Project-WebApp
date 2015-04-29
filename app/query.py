@@ -91,7 +91,13 @@ def query(query_string):
 
 
 
-def ranked_query(query_string):
+def ranked_query(query_string, complete = 100, coverage = 100, rarity = 100, unique = 100):
+    #Turn into %s
+    complete /= float(100)
+    coverage /= float(100)
+    rarity /= float(100)
+    unique /= float(100)
+
     #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
     MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
     client = MongoClient(MONGODB_URI)
@@ -105,9 +111,9 @@ def ranked_query(query_string):
 
     possible_documents = []
     #Part 1: Pull doc data from MongoDB
-    #1. We only need to keep one copy of doc-specific ranks.
-    #2. For each doc, count the # of matched terms
-    #3. For each doc, sum the ingredient IDF
+        #A. We only need to keep one copy of doc-specific ranks.
+        #B. For each doc, count the # of matched terms
+        #C. For each doc, sum the ingredient IDF
     query_results = dict()
     max_results_count = 0
     max_matched_IDF = 0
@@ -137,32 +143,24 @@ def ranked_query(query_string):
     #Part 2: Rank and Sort
     rank_max = db.MaxMin.find_one()
     ranked_results = dict()
-    rank_complete = dict()
-    rank_coverage = dict()
-    rank_unique = dict()
-    rank_rarity = dict()
-    n = 0
+#    rank_complete = dict()
+#    rank_coverage = dict()
+#    rank_unique = dict()
+#    rank_rarity = dict()
     try:
         for k, v in query_results.iteritems():
-            n += 1
-            ranked_results[k] = n
-            rank_complete[k] = v[4] / float(v[2])
-            rank_coverage[k] = v[4] / float(query_len)
-            rank_rarity[k] = v[3] / max_matched_IDF
-            rank_unique[k] = v[1] / float(rank_max['maxMean'])
+            #rank_complete[k] = complete * (v[4] / float(v[2]))
+            #rank_coverage[k] = coverage * (v[4] / float(query_len))
+            #rank_rarity[k] = rarity * (v[3] / max_matched_IDF)
+            #rank_unique[k] = unique * (v[1] / float(rank_max['maxMean']))
+            ranked_results[k] = (complete * (v[4] / float(v[2]))) + (coverage * (v[4] / float(query_len))) + (rarity * (v[3] / max_matched_IDF)) + (unique * (v[1] / float(rank_max['maxMean'])))
 
     except:
         print "rank pass"
         pass
 
 
-    ranked_docs = sorted(query_results, key=query_results.__getitem__, reverse=True)
-
-
-    print rank_complete
-    print rank_coverage
-    print rank_rarity
-    print rank_unique
+    ranked_docs = sorted(ranked_results, key=ranked_results.__getitem__, reverse=True)
     return ranked_docs
 
 def fetch_details(post_list):
