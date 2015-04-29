@@ -100,6 +100,7 @@ def ranked_query(query_string):
 
     ranked_ind = db.rank3
     processed_search = extract_key_ingred(query_string)
+    query_len = len(processed_search)
     print processed_search
 
     possible_documents = []
@@ -134,12 +135,22 @@ def ranked_query(query_string):
             pass
 
     #Part 2: Rank and Sort
+    rank_max = db.MaxMin.find_one()
     ranked_results = dict()
+    rank_complete = dict()
+    rank_coverage = dict()
+    rank_unique = dict()
+    rank_rarity = dict()
     n = 0
     try:
         for k, v in query_results.iteritems():
             n += 1
             ranked_results[k] = n
+            rank_complete[k] = v[4] / float(v[2])
+            rank_coverage[k] = v[4] / float(query_len)
+            rank_rarity[k] = v[3] / max_matched_IDF
+            rank_unique[k] = v[1] / float(rank_max['maxMean'])
+
     except:
         print "rank pass"
         pass
@@ -148,7 +159,10 @@ def ranked_query(query_string):
     ranked_docs = sorted(query_results, key=query_results.__getitem__, reverse=True)
 
 
-    print ranked_docs
+    print rank_complete
+    print rank_coverage
+    print rank_rarity
+    print rank_unique
     return ranked_docs
 
 def fetch_details(post_list):
