@@ -153,13 +153,13 @@ def ranked_query(query_string):
 
 def fetch_details(post_list):
     print "fetching details"
-    #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
     MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
+    #MONGODB_URI = 'mongodb://recipe:recipe@ds053370.mongolab.com:53370/recipemaker'
 
     client = MongoClient(MONGODB_URI)
 
-    #db = client['recipemaker']
     db = client['scraper']
+    #db = client['recipemaker']
     doc_info = db.recipeURLs
 
     details = []

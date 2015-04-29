@@ -17,7 +17,7 @@ def index(CurrentPage = 1):
         posts = list(ranked_query(form.post.data))
         #posts = dead_query(query_string="test1")
         #print posts
-        session['posts'] = posts[0:400]
+        session['posts'] = posts[0:200]
 
     #Load last query results from Cookie (if exists)
     if 'posts' in session:
