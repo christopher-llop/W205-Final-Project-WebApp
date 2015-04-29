@@ -15,7 +15,7 @@ def index(CurrentPage = 1):
         #posts = dead_query(form.post.data)
         #posts = list(query(form.post.data))
         posts = list(ranked_query(form.post.data))
-        posts = dead_query(query_string="test1")
+        #posts = dead_query(query_string="test1")
         #print posts
         session['posts'] = posts[0:400]
 
