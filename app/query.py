@@ -136,8 +136,20 @@ def ranked_query(query_string):
     #Part 2: Rank and Sort
     ranked_results = dict()
     n = 0
-    return possible_documents
+    try:
+        for k, v in query_results.iteritems():
+            n += 1
+            ranked_results[k] = n
+    except:
+        print "rank pass"
+        pass
 
+
+    ranked_docs = sorted(query_results, key=query_results.__getitem__, reverse=True)
+
+
+    print ranked_docs
+    return ranked_docs
 
 def fetch_details(post_list):
     #MONGODB_URI = 'mongodb://query:query@ds029142-a0.mongolab.com:29142/scraper'
